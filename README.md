@@ -19,40 +19,40 @@ Once complete, press `CTRL`+`O`, then `ENTER` to save the changes.
 Once complete, press `CTRL`+`X` to exit the editor. 
 10. `sudo nano /etc/systemd/system/mindustry.service` to create a service file. This will launch the mindustry server everytime the virtual server starts.
 11. Paste in and edit the following:
-```
-[Unit]
-Description=Gunicorn instance to serve Mindustry
-After=network.target
+    ```
+    [Unit]
+    Description=Gunicorn instance to serve Mindustry
+    After=network.target
 
-[Service]
-User=ubuntu
-Group=www-data
-WorkingDirectory=/home/ubuntu/Mindustry
-Environment="PATH=/home/ubuntu/Mindustry/mindustryServer/bin"
-ExecStart=/home/ubuntu/Mindustry/mindustryServer/bin/gunicorn --workers 1 --threads 1 --bind unix:mindustry.sock -m 007 server:app
+    [Service]
+    User=ubuntu
+    Group=www-data
+    WorkingDirectory=/home/ubuntu/Mindustry
+    Environment="PATH=/home/ubuntu/Mindustry/mindustryServer/bin"
+    ExecStart=/home/ubuntu/Mindustry/mindustryServer/bin/gunicorn --workers 1 --threads 1 --bind unix:mindustry.sock -m 007 server:app
 
-[Install]
-WantedBy=multi-user.target
-```
-Once complete, press `CTRL`+`O`, then `ENTER` to save the changes. 
-Once complete, press `CTRL`+`X` to exit the editor. 
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    Once complete, press `CTRL`+`O`, then `ENTER` to save the changes. 
+    Once complete, press `CTRL`+`X` to exit the editor. 
 12. `sudo systemctl start mindustry` to start the server
 13. `sudo systemctl enable mindustry` to start the server on boot
 14. `sudo systemctl status mindustry` to make sure everything is working fine. If errors occurred, check previous setps or open an issue to ask for help.
 15. `sudo nano /etc/nginx/sites-available/mindustry` to create the Nginx server entry. Paste and edit the following as necessary.
-```
-server {
-    listen 80;
-    server_name your_domain_or_ip;
+    ```
+    server {
+        listen 80;
+        server_name your_domain_or_ip;
 
-    location / {
-        include proxy_params;
-        proxy_pass http://unix:/home/ubuntu/Mindustry/mindustry.sock;
+        location / {
+            include proxy_params;
+            proxy_pass http://unix:/home/ubuntu/Mindustry/mindustry.sock;
+        }
     }
-}
-```
-Once complete, press `CTRL`+`O`, then `ENTER` to save the changes. 
-Once complete, press `CTRL`+`X` to exit the editor. 
+    ```
+    Once complete, press `CTRL`+`O`, then `ENTER` to save the changes. 
+    Once complete, press `CTRL`+`X` to exit the editor. 
 16. `sudo ln -s /etc/nginx/sites-available/mindustry /etc/nginx/sites-enabled` to link your site configuration to Nginx's enabled sites.
 17. `sudo nginx -t` to check that everything is without issue with Nginx
 18. `sudo systemctl restart nginx` to restart Nginx
