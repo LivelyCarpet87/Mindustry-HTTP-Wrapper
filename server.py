@@ -141,7 +141,7 @@ def keepOut():
 def tempWhitelistOff():
     testLoggedIn()
     child.sendline("config whitelist off")
-    time.sleep(60)
+    time.sleep(20)
     child.sendline("config whitelist on")
     return redirect("/")
 
