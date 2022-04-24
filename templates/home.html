@@ -1,16 +1,44 @@
 <h1>Server Management Portal</h1>
 <h3>Start/Stop Game</h3>
 <div style="display: flex; flex-direction: column; ">
-    <a href="/actions/host">Host</a>
+    <a href="/actions/host">Start game</a>
     <a href="/actions/stop">Stop</a>
     <div><a href="/actions/save-to-slot/slot0">Save to Slot 0</a> <a href="/actions/save-to-slot/slot1">Save to Slot 1</a> <a href="/actions/save-to-slot/slot2">Save to Slot 2</a></div>
     <div><a href="/actions/load-slot/slot0">Load Slot 0</a> <a href="/actions/load-slot/slot1">Load Slot 1</a> <a href="/actions/load-slot/slot2">Load Slot 2</a> </div>
 </div>
 <br>
-<h3>Pause Game</h3>
+<h3>Host Custom Game</h3>
+<form action="/actions/host" method="post">
+    <h5>Map</h5>
+    <input type="radio" id="Ancient_Caldera" name="map" value="Ancient_Caldera" id="Ancient_Caldera"  checked><label for="Ancient_Caldera">Ancient_Caldera</label><br>
+    <input type="radio" id="Archipelago" name="map" value="Archipelago" id="Archipelago"  checked><label for="Archipelago">Archipelago</label><br>
+    <input type="radio" id="Debris_Field" name="map" value="Debris_Field" id="Debris_Field"  checked><label for="Debris_Field">Debris_Field</label><br>
+    <input type="radio" id="Fork" name="map" value="Fork" id="Fork"  checked><label for="Fork">Fork</label><br>
+    <input type="radio" id="Fortress" name="map" value="Fortress" id="Fortress"  checked><label for="Fortress">Fortress</label><br>
+    <input type="radio" id="Glacier" name="map" value="Glacier" id="Glacier"  checked><label for="Glacier">Glacier</label><br>
+    <input type="radio" id="Islands" name="map" value="Islands" id="Islands"  checked><label for="Islands">Islands</label><br>
+    <input type="radio" id="Labyrinth" name="map" value="Labyrinth" id="Labyrinth"  checked><label for="Labyrinth">Labyrinth</label><br>
+    <input type="radio" id="Maze" name="map" value="Maze" id="Maze"  checked><label for="Maze">Maze</label><br>
+    <input type="radio" id="Molten_Lake" name="map" value="Molten_Lake" id="Molten_Lake"  checked><label for="Molten_Lake">Molten_Lake</label><br>
+    <input type="radio" id="Mud_Flats" name="map" value="Mud_Flats" id="Mud_Flats"  checked><label for="Mud_Flats">Mud_Flats</label><br>
+    <input type="radio" id="Shattered" name="map" value="Shattered" id="Shattered"  checked><label for="Shattered">Shattered</label><br>
+    <input type="radio" id="Tendrils" name="map" value="Tendrils" id="Tendrils"  checked><label for="Tendrils">Tendrils</label><br>
+    <input type="radio" id="Triad" name="map" value="Triad" id="Triad"  checked><label for="Triad">Triad</label><br>
+    <input type="radio" id="Veins" name="map" value="Veins" id="Veins"  checked><label for="Veins">Veins</label><br>
+    <input type="radio" id="Wasteland" name="map" value="Wasteland" id="Wasteland"  checked><label for="Wasteland">Wasteland</label><br>
+    <h5>Mode</h5>
+    <input type="radio" id="attack" name="mode" value="attack" id="attack"  checked><label for="attack">attack</label><br>
+    <input type="radio" id="survival" name="mode" value="survival" id="survival"  checked><label for="survival">survival</label><br>
+    <input type="radio" id="sandbox" name="mode" value="sandbox" id="sandbox"  checked><label for="sandbox">sandbox</label><br>
+    <input type="radio" id="pvp" name="mode" value="pvp" id="pvp"  checked><label for="pvp">pvp</label><br>
+    <button>Submit</button>
+</form>
+<br>
+<h3>Pause & Next wave</h3>
 <div style="display: flex; flex-direction: column; ">
     <a href="/actions/pause-on">Pause on</a>
     <a href="/actions/pause-off">Pause off</a>
+    <a href="/actions/runwave">Next Wave</a>
 </div>
 <br>
 <h3>Whitelist</h3>

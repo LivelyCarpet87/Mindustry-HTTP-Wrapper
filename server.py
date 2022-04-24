@@ -106,6 +106,25 @@ def hostGame():
     child.sendline(f'host')
     return redirect("/")
 
+@app.route('/actions/host', methods=['POST'])
+def hostGameDefined():
+    testLoggedIn()
+    map=request.form.get('map')
+    mode=request.form.get('mode')
+    if map not in ["Ancient_Caldera", "Archipelago", "Debris_Field", "Fork", "Fortress", "Glacier", "Islands", "Labyrinth", "Maze",
+    "Molten_Lake", "Mud_Flats", "Shattered", "Tendrils", "Triad", "Veins", "Wasteland"]:
+        abort(400)
+    if mode not in ["sandbox", "survival", "attack", "pvp"]:
+        abort(400)
+    child.sendline(f'host {map} {mode}')
+    return redirect("/")
+
+@app.route('/actions/runwave', methods=['GET'])
+def runwave():
+    testLoggedIn()
+    child.sendline(f'runwave')
+    return redirect("/")
+
 @app.route('/actions/letInPlayer', methods=['GET'])
 def letInPlayer():
     testLoggedIn()
