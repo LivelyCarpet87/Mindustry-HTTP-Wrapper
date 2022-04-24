@@ -6,7 +6,10 @@ import os
 # START CONFIG HERE
 
 # Path the the mindustry server jar file
-path="/path/to/server-release.jar"
+jar_path="/path/to/server-release.jar"
+
+# Path to java
+java_path="/usr/bin/java"
 
 # Display name of the server
 serverName = "Murder Drones"
@@ -24,7 +27,7 @@ accounts = {
 secret_key="CHANGEMETOO"
 # END CONFIG HERE
 
-if path == "/path/to/server-release.jar":
+if jar_path == "/path/to/server-release.jar":
     print("Open the server.py file to edit the configuration.")
     exit()
 
@@ -38,7 +41,7 @@ import time
 @app.before_first_request
 def init():
     global child
-    child = pexpect.spawn(f'java {memoryLimit} -jar {path}')
+    child = pexpect.spawn(f'{java_path} {memoryLimit} -jar {jar_path}')
     child.sendline(f'config name {serverName}')
     child.sendline(f'config description {desc}')
     child.sendline('config whitelist true')
