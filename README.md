@@ -11,6 +11,9 @@ It provides a simple web interface, where users can log in to issue simple comma
 > ![UI Screenshot 1](https://github.com/LivelyCarpet87/Mindustry-HTTP-Wrapper/blob/main/docs/UI-Screenshot-1.png?raw=true)
 > ![UI Screenshot 2](https://github.com/LivelyCarpet87/Mindustry-HTTP-Wrapper/blob/main/docs/UI-Screenshot-2.png?raw=true)
 
+# About Arbitrary Code Execution
+Mindustry servers have the ability to execute javascript code. This includes code that can hack your server. As a result. Arbitrary commands execution (for commands outside of the whitelisted commands in the project) and user text input is disabled by default. However, if you really trust your password and my code, or care little about your server being coopted into the next big botnet, you can always re-enable that feature.
+
 # Mindustry Setup (Linux Server)
 The following tutorial for setup assumed you have a Ubuntu server with Nginx and python3 installed. If your situation differs, your mileage may vary. Feel free to open an issue to ask for help.
 A tutorial for installing Nginx can be found [here](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04).
