@@ -20,6 +20,7 @@
         {% endfor %}
     </div>
     {% endif %}
+    {% if "gameover" in accountInfo["allowedCommands"] %}<a href="/actions/gameover">End game</a>{% endif %}
 </div>
 {% if "host" in accountInfo["allowedCommands"] %}
 <br>
@@ -38,6 +39,8 @@
 </form>
 {% endif %}
 <br>
+{% if "reloadmaps" in accountInfo["allowedCommands"] %}<a href="/actions/reloadmaps">Reload maps</a>{% endif %}
+<br>
 {% if "pause" in accountInfo["allowedCommands"] %}
 <h3>Pause & Next wave</h3>
 <div style="display: flex; flex-direction: column; ">
@@ -54,7 +57,9 @@
     <a href="/actions/enableWhitelist">Whitelist On</a>
 </div>
 {% endif %}
-
+<br>
+{% if "gameover" in accountInfo["status"] %}<a href="/actions/status">Status</a>{% endif %}
+<br>
 {% if accountInfo["seeFullHistory"] %}
 <pre>
 {% for segment in conversation %}

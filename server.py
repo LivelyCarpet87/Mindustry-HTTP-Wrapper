@@ -25,15 +25,23 @@ maxConvoLen=20
 accounts = {
     "admin": {
         "password": "PASSWORD_CHANGE_ME_PLEASE",
-        "allowedCommands": ["pause", "host", "stop", "load", "save", "whitelist"],
+        "allowedCommands": ["pause", "host", "stop", "load", "save", "whitelist", "reloadmaps", "gameover", "status"],
         "allowedSlots": ["slot0", "slot1", "slot2", "admin slot"],
         "allowInput": True,
         "seeFullHistory": True,
         },
-    "invitee": {
+    "trustedInvitee": {
         "password": "PASSWORD_CHANGE_ME_PLEASE",
-        "allowedCommands": [],
+        "allowedCommands": ["pause", "host", "stop", "load", "save", "whitelist"],
         "allowInput": False,
+        "allowedSlots": ["slot0", "slot1", "slot2"],
+        "seeFullHistory": False,
+        },
+    "untrustedInvitee": {
+        "password": "PASSWORD_CHANGE_ME_PLEASE",
+        "allowedCommands": ["pause", "host", "stop", "load",],
+        "allowInput": False,
+        "allowedSlots": ["slot0"],
         "seeFullHistory": False,
         },
 }
@@ -211,6 +219,24 @@ def tempWhitelistOff():
         inputCommand(f"whitelist-add {matches[-1]}")
     else:
         conversation.append("No players joining recently")
+    return redirect("/")
+
+@app.route('/actions/reloadmaps', methods=['GET'])
+def relaodMaps():
+    testCanRun("reloadmaps")
+    inputCommand('reloadmaps')
+    return redirect("/")
+
+@app.route('/actions/gameover', methods=['GET'])
+def gameover():
+    testCanRun("gameover")
+    inputCommand('gameover')
+    return redirect("/")
+
+@app.route('/actions/status', methods=['GET'])
+def status():
+    testCanRun("status")
+    inputCommand('status')
     return redirect("/")
 
 @app.route('/status', methods=['GET'])
