@@ -11,7 +11,7 @@ jar_path="/path/to/server-release.jar"
 java_path="/usr/bin/java"
 
 # Display name of the server
-serverName = "Murder Drones"
+serverName = "Mindustry Server"
 # Description for the server
 desc="A private server for friends."
 
