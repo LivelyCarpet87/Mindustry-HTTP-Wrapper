@@ -25,7 +25,8 @@ maxConvoLen=20
 accounts = {
     "admin": {
         "password": "PASSWORD_CHANGE_ME_PLEASE",
-        "allowedCommands": ["pause", "host", "stop", "maps", "status"],
+        "allowedCommands": ["pause", "host", "stop", "load", "save", "whitelist"],
+        "allowedSlots": ["slot0", "slot1", "slot2", "admin slot"],
         "allowInput": True,
         "seeFullHistory": True,
         },
@@ -112,7 +113,7 @@ def home():
     username = session.get("username")
     if username is None:
         return render_template("login.html")
-    return render_template("home.html", maps=maps, conversation = conversation, conversationPointer=conversationPointer)
+    return render_template("home.html", maps=maps, conversation = conversation, conversationPointer=conversationPointer, accountInfo=accounts[username])
 
 @app.route('/', methods=['POST'])
 def login():
@@ -131,52 +132,53 @@ def testLoggedIn():
 
 def testCanRun(command):
     username = session.get("username")
-    if username is None:
-        abort(403)
+    testLoggedIn()
     if command not in accounts[username]["allowedCommands"]:
         abort(403)
 
 @app.route('/actions/pause-on', methods=['GET'])
 def pauseStateOn():
-    testLoggedIn()
+    testCanRun("pause")
     inputCommand('pause on')
     return redirect("/")
 
 @app.route('/actions/pause-off', methods=['GET'])
 def pauseStateOff():
-    testLoggedIn()
+    testCanRun("pause")
     inputCommand('pause off')
     return redirect("/")
 
 @app.route('/actions/save-to-slot/<save_slot>', methods=['GET'])
 def saveToSlot(save_slot):
-    testLoggedIn()
-    if save_slot in ["slot0", "slot1", "slot2"]:
+    testCanRun("save")
+    username = session.get("username")
+    if save_slot in accounts[username]["allowedSlots"]:
         inputCommand(f'save {save_slot}')
     return redirect("/")
 
 @app.route('/actions/load-slot/<save_slot>', methods=['GET'])
 def loadSlot(save_slot):
-    testLoggedIn()
-    if save_slot in ["slot0", "slot1", "slot2"]:
+    testCanRun("load")
+    username = session.get("username")
+    if save_slot in accounts[username]["allowedSlots"]:
         inputCommand(f'load {save_slot}')
     return redirect("/")
 
 @app.route('/actions/stop', methods=['GET'])
 def stopGame():
-    testLoggedIn()
+    testCanRun("stop")
     inputCommand(f'stop')
     return redirect("/")
 
 @app.route('/actions/host', methods=['GET'])
 def hostGame():
-    testLoggedIn()
+    testCanRun("host")
     inputCommand(f'host')
     return redirect("/")
 
 @app.route('/actions/host', methods=['POST'])
 def hostGameDefined():
-    testLoggedIn()
+    testCanRun("host")
     map=request.form.get('map')
     mode=request.form.get('mode')
     if map not in ["Ancient_Caldera", "Archipelago", "Debris_Field", "Fork", "Fortress", "Glacier", "Islands", "Labyrinth", "Maze",
@@ -187,27 +189,21 @@ def hostGameDefined():
     inputCommand(f'host {map} {mode}')
     return redirect("/")
 
-@app.route('/actions/runwave', methods=['GET'])
-def runwave():
-    testLoggedIn()
-    inputCommand(f'runwave')
-    return redirect("/")
-
 @app.route('/actions/disableWhitelist', methods=['GET'])
 def letInPlayer():
-    testLoggedIn()
+    testCanRun("whitelist")
     inputCommand("config whitelist off")
     return redirect("/")
 
 @app.route('/actions/enableWhitelist', methods=['GET'])
 def keepOut():
-    testLoggedIn()
+    testCanRun("whitelist")
     inputCommand("config whitelist on")
     return redirect("/")
 
 @app.route('/actions/whitelistRecentPlayer', methods=['GET'])
 def tempWhitelistOff():
-    testLoggedIn()
+    testCanRun("whitelist")
     global conversationPointer
     recentActivity = getOutput()
     matches = re.findall(r"([A-Za-z=\d]{24})", recentActivity)

@@ -4,11 +4,24 @@
 </pre>
 <h3>Start/Stop Game</h3>
 <div style="display: flex; flex-direction: column; ">
-    <a href="/actions/host">Start game</a>
-    <a href="/actions/stop">Stop</a>
-    <div><a href="/actions/save-to-slot/slot0">Save to Slot 0</a> <a href="/actions/save-to-slot/slot1">Save to Slot 1</a> <a href="/actions/save-to-slot/slot2">Save to Slot 2</a></div>
-    <div><a href="/actions/load-slot/slot0">Load Slot 0</a> <a href="/actions/load-slot/slot1">Load Slot 1</a> <a href="/actions/load-slot/slot2">Load Slot 2</a> </div>
+    {% if "host" in accountInfo["allowedCommands"] %}<a href="/actions/host">Start game</a>{% endif %}
+    {% if "stop" in accountInfo["allowedCommands"] %}<a href="/actions/stop">Stop</a>{% endif %}
+    {% if "save" in accountInfo["allowedCommands"] %}
+    <div>
+        {% for slot in accountInfo["allowedSlots"]%}
+        <a href="/actions/save-to-slot/{{slot}}">Save to {{slot}}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if "load" in accountInfo["allowedCommands"] %}
+    <div>
+        {% for slot in accountInfo["allowedSlots"]%}
+        <a href="/actions/load-slot/{{slot}}">Load {{slot}}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
+{% if "host" in accountInfo["allowedCommands"] %}
 <br>
 <h3>Host Custom Game</h3>
 <form action="/actions/host" method="post">
@@ -23,17 +36,29 @@
     <input type="radio" id="pvp" name="mode" value="pvp" id="pvp" ><label for="pvp">pvp</label><br>
     <button>Submit</button>
 </form>
+{% endif %}
 <br>
+{% if "pause" in accountInfo["allowedCommands"] %}
 <h3>Pause & Next wave</h3>
 <div style="display: flex; flex-direction: column; ">
     <a href="/actions/pause-on">Pause on</a>
     <a href="/actions/pause-off">Pause off</a>
-    <a href="/actions/runwave">Next Wave</a>
 </div>
+{% endif %}
 <br>
+{% if "whitelist" in accountInfo["allowedCommands"] %}
 <h3>Whitelist</h3>
 <div style="display: flex; flex-direction: column; ">
     <a href="/actions/whitelistRecentPlayer">Whitelist Most Recent Player</a>
     <a href="/actions/disableWhitelist">Whitelist off</a>
     <a href="/actions/enableWhitelist">Whitelist On</a>
 </div>
+{% endif %}
+
+{% if accountInfo["seeFullHistory"] %}
+<pre>
+{% for segment in conversation %}
+{{segment}}
+{% endfor %}
+</pre>
+{% endif %}
