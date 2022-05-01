@@ -23,25 +23,34 @@ maxConvoLen=20
 
 # User accounts on the server
 accounts = {
-    "admin": {
-        "password": "PASSWORD_CHANGE_ME_PLEASE",
+    "admin": { # username
+        "password": "PASSWORD_CHANGE_ME_PLEASE", # Password for the account
+        # Commands the account can run
         "allowedCommands": ["pause", "host", "stop", "load", "save", "whitelist", "reloadmaps", "gameover", "status"],
+        # Save slots the account is allowed to use
         "allowedSlots": ["slot0", "slot1", "slot2", "admin slot"],
-        "allowInput": True,
+        # Whether if the account is allowed to run arbitrary mindustry commands.
+        # It is strongly recommended to not enable this UNLESS you:
+        # 1. Trust this server code to be secure
+        # 2. Trust the mindustry source code to be secure
+        # 3. Trust this user
+        # Otherwise, they may be able to arbitrarily execute commands and potentially compromise the server
+        "allowArbitraryCommands": False,
+        # If the user is allowed to see the full saved history of server interactions, up to the maxConvoLen
         "seeFullHistory": True,
         },
     "trustedInvitee": {
         "password": "PASSWORD_CHANGE_ME_PLEASE",
         "allowedCommands": ["pause", "host", "stop", "load", "save", "whitelist"],
-        "allowInput": False,
         "allowedSlots": ["slot0", "slot1", "slot2"],
+        "allowArbitraryCommands": False,
         "seeFullHistory": False,
         },
     "untrustedInvitee": {
         "password": "PASSWORD_CHANGE_ME_PLEASE",
         "allowedCommands": ["pause", "host", "stop", "load",],
-        "allowInput": False,
         "allowedSlots": ["slot0"],
+        "allowArbitraryCommands": False,
         "seeFullHistory": False,
         },
 }
@@ -143,6 +152,16 @@ def testCanRun(command):
     testLoggedIn()
     if command not in accounts[username]["allowedCommands"]:
         abort(403)
+
+@app.route('/actions/runCommand', methods=['POST'])
+def runCommand():
+    command = request.form.get('command')
+    username = session.get("username")
+    testLoggedIn()
+    if not accounts[username]["allowArbitraryCommands"]:
+        abort(403)
+    inputCommand(command)
+    return redirect("/")
 
 @app.route('/actions/pause-on', methods=['GET'])
 def pauseStateOn():

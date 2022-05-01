@@ -2,6 +2,11 @@
 <pre>
 {{ conversation[conversationPointer] }}
 </pre>
+{% if accountInfo["allowArbitraryCommands"] %}
+<form method="POST" action="/actions/runCommand">
+    <input id="command" type="text" name="command" value="" required> <button type="submit">Run command</button>
+</form>
+{% endif %}
 <h3>Start/Stop Game</h3>
 <div style="display: flex; flex-direction: column; ">
     {% if "host" in accountInfo["allowedCommands"] %}<a href="/actions/host">Start game</a>{% endif %}
