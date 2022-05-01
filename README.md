@@ -2,6 +2,15 @@
 This is a project to remotely host a Mindustry server on a remote server without a GUI, such as AWS EC2 or Digital Ocean Droplets. 
 It provides a simple web interface, where users can log in to issue simple commands.
 
+# Features
+1. Lightweight Remote Management: Remotely manage your Mindustry server from a lightweight web GUI
+2. Access Control: Different accounts have different permissions, limiting the commands they can run and the save slots that they can use. If you don't trust your invitee, give them less access.
+3. GUI: Easier to use for people who have never touched the command line. Click on forms and buttons instead of typing commands.
+
+# UI Sample Image
+![UI Screenshot 1](https://github.com/LivelyCarpet87/Mindustry-HTTP-Wrapper/blob/main/docs/UI-Screenshot-1.png?raw=true)
+![UI Screenshot 2](https://github.com/LivelyCarpet87/Mindustry-HTTP-Wrapper/blob/main/docs/UI-Screenshot-2.png?raw=true)
+
 # Mindustry Setup (Linux Server)
 The following tutorial for setup assumed you have a Ubuntu server with Nginx and python3 installed. If your situation differs, your mileage may vary. Feel free to open an issue to ask for help.
 A tutorial for installing Nginx can be found [here](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04).
