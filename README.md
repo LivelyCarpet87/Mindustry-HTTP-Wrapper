@@ -70,11 +70,13 @@ Once complete, press `CTRL`+`X` to exit the editor.
 # Predictable questions
 
 ## Why is the interface ugly?
-Because this project does not need a beautiful interface to function, it is a collection of links that trigger different server responses. It currently does
-not give any output back to the user interface because I still cannot get `pexpect` to parse the Mindustry CLI output. Instead, just look at your server to see
-if anything happened.
+Because this project does not need a beautiful interface to function, it is a collection of links and forms that trigger different server responses.
 
-## Why can't I issue any commands that requires input?
+## Why can't I issue arbitrary commands by default?
 I believe that it is a horrible security practice to expose a web app that has priveleged access to a shell that can run arbitrary code, then hoping that it never
-gets abused. Instead of investing in a lot of security filtering, I instead elected to whitelist inputs. Feel free to extend the code in any way to add more features,
+gets abused. Instead of investing in a lot of security filtering, I instead elected to whitelist inputs. However, if you are understand the risks (hopefully), you can change the settings under the server configuration.
+
+
+
+Feel free to extend the code in any way to add more features,
 or just open a pull request asking me to.
