@@ -115,7 +115,7 @@ def init():
     child.stdin.write(f'config description {desc}\n'.encode())
     child.stdin.write(b'config whitelist true\n')
     child.stdin.write(b'config socketInput true\n')
-    time.sleep(1)
+    time.sleep(10)
     mindustrySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     mindustrySocket.connect( ("localhost", 6859) )
     mindustrySocket.settimeout(5.0)
