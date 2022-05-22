@@ -20,8 +20,8 @@ A tutorial for installing Nginx can be found [here](https://www.digitalocean.com
 
 1. `ssh` into your remote server.
 2. `mkdir Mindustry && cd Mindustry` to make a folder for the code and server jar.
-3. `wget https://github.com/LivelyCarpet87/Mindustry-HTTP-Wrapper/releases/download/v2.0/Mindustry-HTTP-Wrapper_2.0.zip` to download the latest release to the current folder. Also use `wget` to download the latest mindustry server release from [here](https://github.com/Anuken/Mindustry/releases/latest)
-4. `unzip -x Mindustry-HTTP-Wrapper_2.0.zip` to extract the files
+3. `wget https://github.com/LivelyCarpet87/Mindustry-HTTP-Wrapper/releases/download/v2.1/Mindustry-HTTP-Wrapper_v2.1.zip` to download the latest release to the current folder. Also use `wget` to download the latest mindustry server release from [here](https://github.com/Anuken/Mindustry/releases/latest)
+4. `unzip -x Mindustry-HTTP-Wrapper_v2.1.zip` to extract the files
 5. `python3 -m venv mindustryServer` to create a virtual environment for the server's python dependency
 6. `source mindustryServer/bin/activate` to activate the virtual environment. (You will need to do this step every time you start a new shell)
 7. `pip3 install -r requirements.txt` to install the required libraries
