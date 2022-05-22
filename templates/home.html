@@ -1,7 +1,9 @@
 <h1>Server Management Portal</h1>
+{% if conversation is defined %}
 <pre>
 {{ conversation[conversationPointer] }}
 </pre>
+{% endif %}
 {% if accountInfo["allowArbitraryCommands"] %}
 <form method="POST" action="/actions/runCommand">
     <input id="command" type="text" name="command" value="" required> <button type="submit">Run command</button>

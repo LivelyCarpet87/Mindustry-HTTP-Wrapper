@@ -83,7 +83,7 @@ def getOutput():
     while True:
         try:
             newExchange += mindustrySocket.recv(1)
-        except TimeoutError:
+        except socket.timeout:
             break
     newExchange = re.sub(r'\x1b\[\d+m','',newExchange.decode())
     newExchange = newExchange
@@ -128,9 +128,9 @@ def init():
 @app.route('/', methods=['GET'])
 def home():
     username = session.get("username")
-    if username is None:
+    if username is None or username not in accounts.keys():
         return render_template("login.html")
-    return render_template("home.html", maps=maps, conversation = conversation, conversationPointer=conversationPointer, accountInfo=accounts[username])
+    return render_template("home.html", maps=maps, conversation=conversation, conversationPointer=conversationPointer, accountInfo=accounts[username])
 
 @app.route('/', methods=['POST'])
 def login():
@@ -138,7 +138,7 @@ def login():
     passwordIn = request.form.get('password')
     if usernameIn in accounts.keys() and accounts[usernameIn]["password"] == passwordIn:
         session["username"]=usernameIn
-        return render_template("home.html")
+        return render_template("home.html", maps=maps, conversation=conversation, conversationPointer=conversationPointer, accountInfo=accounts[usernameIn])
     else:
         return render_template("login.html")
 
