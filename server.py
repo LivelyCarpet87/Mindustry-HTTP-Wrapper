@@ -122,6 +122,7 @@ def init():
 
     mapsCommandOutput = inputCommand("maps")
     matches = re.findall(r"([A-Za-z_]*):\ [DefaultCustom]* \/ \d+x\d+", mapsCommandOutput)
+    maps = []
     for match in matches:
         maps.append(match)
 
@@ -208,8 +209,7 @@ def hostGameDefined():
     testCanRun("host")
     map=request.form.get('map')
     mode=request.form.get('mode')
-    if map not in ["Ancient_Caldera", "Archipelago", "Debris_Field", "Fork", "Fortress", "Glacier", "Islands", "Labyrinth", "Maze",
-    "Molten_Lake", "Mud_Flats", "Shattered", "Tendrils", "Triad", "Veins", "Wasteland"]:
+    if map not in maps:
         abort(400)
     if mode not in ["sandbox", "survival", "attack", "pvp"]:
         abort(400)
@@ -242,8 +242,14 @@ def tempWhitelistOff():
 
 @app.route('/actions/reloadmaps', methods=['GET'])
 def relaodMaps():
+    global maps
     testCanRun("reloadmaps")
     inputCommand('reloadmaps')
+    mapsCommandOutput = inputCommand("maps")
+    matches = re.findall(r"([A-Za-z_]*):\ [DefaultCustom]* \/ \d+x\d+", mapsCommandOutput)
+    maps = []
+    for match in matches:
+        maps.append(match)
     return redirect("/")
 
 @app.route('/actions/gameover', methods=['GET'])
