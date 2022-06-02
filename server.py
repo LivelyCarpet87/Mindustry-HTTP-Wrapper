@@ -104,7 +104,14 @@ def getOutput():
     return newExchange
 
 
-
+def reloadMaps():
+    global maps
+    inputCommand('reloadmaps')
+    mapsCommandOutput = inputCommand("maps")
+    matches = re.findall(r"([A-Za-z_0-9]*):\ [DefaultCustom]* \/ \d+x\d+", mapsCommandOutput)
+    maps = []
+    for match in matches:
+        maps.append(match)
 
 @app.before_first_request
 def init():
@@ -120,11 +127,7 @@ def init():
     mindustrySocket.connect( ("localhost", 6859) )
     mindustrySocket.settimeout(5.0)
 
-    mapsCommandOutput = inputCommand("maps")
-    matches = re.findall(r"([A-Za-z_]*):\ [DefaultCustom]* \/ \d+x\d+", mapsCommandOutput)
-    maps = []
-    for match in matches:
-        maps.append(match)
+    reloadMaps()
 
 @app.route('/', methods=['GET'])
 def home():
@@ -241,15 +244,10 @@ def tempWhitelistOff():
     return redirect("/")
 
 @app.route('/actions/reloadmaps', methods=['GET'])
-def relaodMaps():
+def reloadMapsEndpoint():
     global maps
     testCanRun("reloadmaps")
-    inputCommand('reloadmaps')
-    mapsCommandOutput = inputCommand("maps")
-    matches = re.findall(r"([A-Za-z_]*):\ [DefaultCustom]* \/ \d+x\d+", mapsCommandOutput)
-    maps = []
-    for match in matches:
-        maps.append(match)
+    reloadMaps()
     return redirect("/")
 
 @app.route('/actions/gameover', methods=['GET'])
