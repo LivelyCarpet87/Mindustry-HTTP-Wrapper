@@ -107,7 +107,7 @@ def getOutput():
 def reloadMaps():
     global maps
     inputCommand('reloadmaps')
-    mapsCommandOutput = inputCommand("maps")
+    mapsCommandOutput = inputCommand("maps all")
     matches = re.findall(r"([A-Za-z_0-9]*):\ [DefaultCustom]* \/ \d+x\d+", mapsCommandOutput)
     maps = []
     for match in matches:
@@ -121,7 +121,6 @@ def init():
     child.stdin.write(f'config name {serverName}\n'.encode())
     child.stdin.write(f'config description {desc}\n'.encode())
     child.stdin.write(b'config whitelist true\n')
-    child.stdin.write(b'config socketInput true\n')
     time.sleep(10)
     mindustrySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     mindustrySocket.connect( ("localhost", 6859) )
