@@ -108,10 +108,10 @@ def reloadMaps():
     global maps
     inputCommand('reloadmaps')
     mapsCommandOutput = inputCommand("maps all")
-    matches = re.findall(r"([A-Za-z_0-9]*):\ [DefaultCustom]* \/ \d+x\d+", mapsCommandOutput)
+    matches = re.findall(r"(\ *)?\(?([A-Za-z_0-9\ ]*)(\.msav)?\)?:\ (Default|Custom) \/ \d+x\d+", mapsCommandOutput)
     maps = []
     for match in matches:
-        maps.append(match)
+        maps.append(f"{match[1]}")
 
 @app.before_first_request
 def init():
